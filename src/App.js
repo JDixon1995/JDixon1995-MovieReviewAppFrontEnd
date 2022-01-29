@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import Container from 'react-bootstrap/Container'
 
 import AddReview from './components/add-review'
 import MoviesList from './components/movies-list'
@@ -26,23 +27,25 @@ function App() {
   return (
 
     <div className="App">
-      <Navbar bg="light" expand="lg">
-    <Navbar.Brand href="#home">Movie Reviews</Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="me-auto">
-        <Nav.Link>
-          <Link to={"/movies"}>Movies</Link>
-        </Nav.Link>
-        { user ? (
-          <button onClick={logout}>Logout User</button>
-        ) : (<Nav.Link to={'./login'}>Login</Nav.Link>)}
-      </Nav>
-    </Navbar.Collapse>
-</Navbar>
+    <Navbar bg="dark" variant="dark">
+    <Container>
+    <Navbar.Brand href="/">Movie Reviews</Navbar.Brand>
+    <Nav className="me-auto">
+    <Nav.Link>
+        <Link to={"/movies"}>Movies</Link>
+    </Nav.Link>
+    <Nav.Link>
+          { user ? (
+          <Link onClick={logout()} to={"/"}>Logout</Link>) : 
+          (<Link to={'/login'}>Login</Link>)}
+      </Nav.Link>
+    </Nav>
+    </Container>
+  </Navbar>
+
 
 <Routes>
-  <Route path="/" element={<MoviesList /> } />
+  <Route path="/movies" element={<MoviesList /> } />
   <Route path="/movies/:id/review" element = {<AddReview />} />
   <Route path="/movies/:id" element={<Movie />} />
   <Route path="/login" element={<Login />} />       
