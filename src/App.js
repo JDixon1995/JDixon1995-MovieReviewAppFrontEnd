@@ -9,6 +9,7 @@ import AddReview from './components/add-review';
 import MoviesList from './components/movies-list';
 import Movie from './components/movie'
 import Login from './components/login';
+import { render } from 'express/lib/application'
 
 function App() {
 
@@ -39,6 +40,23 @@ function App() {
       </Nav>
     </Navbar.Collapse>
 </Navbar>
+
+<Switch>
+  <Route exact path={["/", "/movies"]} component={MoviesList}>
+  </Route>
+  <Route path="/movies/:id/review" render={(props) => 
+    <AddReview {...props} user={user}/>
+  }>
+  </Route>
+  <Route path="/movies/:id/" render={(props) => 
+  <Movie {...props} user={user} />
+  }>
+    <Route path="/login" render={(props) => 
+      <Login {...props} login={login} /> 
+    }>
+    </Route>
+  </Route>
+</Switch>
     </div>
   );
 }
