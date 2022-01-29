@@ -1,22 +1,22 @@
 import React from 'react'
 import { useState } from 'react'
-import { Switch, Route, Link} from 'react-router-dom'
+import { Route, Routes, Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
+
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
-import AddReview from './components/add-review';
-import MoviesList from './components/movies-list';
+import AddReview from './components/add-review'
+import MoviesList from './components/movies-list'
 import Movie from './components/movie'
-import Login from './components/login';
-import { render } from 'express/lib/application'
+import Login from './components/login'
 
 function App() {
 
   const [user, setUser] = useState(null)
 
   async function login(user = null) {
-    setUser(null)
+    setUser(user)
   }
 
   async function logout() {
@@ -35,29 +35,21 @@ function App() {
           <Link to={"/movies"}>Movies</Link>
         </Nav.Link>
         { user ? (
-          <a onClick={logout}>Logout User</a>
+          <button onClick={logout}>Logout User</button>
         ) : (<Nav.Link to={'./login'}>Login</Nav.Link>)}
       </Nav>
     </Navbar.Collapse>
 </Navbar>
 
-<Switch>
-  <Route exact path={["/", "/movies"]} component={MoviesList}>
-  </Route>
-  <Route path="/movies/:id/review" render={(props) => 
-    <AddReview {...props} user={user}/>
-  }>
-  </Route>
-  <Route path="/movies/:id/" render={(props) => 
-  <Movie {...props} user={user} />
-  }>
-    <Route path="/login" render={(props) => 
-      <Login {...props} login={login} /> 
-    }>
-    </Route>
-  </Route>
-</Switch>
-    </div>
+<Routes>
+  <Route path="/" element={<MoviesList /> } />
+  <Route path="/movies/:id/review" element = {<AddReview />} />
+  <Route path="/movies/:id" element={<Movie />} />
+  <Route path="/login" element={<Login />} />       
+</Routes>
+  
+
+  </div>
   );
 }
 
