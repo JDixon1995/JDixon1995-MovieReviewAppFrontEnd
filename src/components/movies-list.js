@@ -52,13 +52,28 @@ const MoviesList = () => {
     setSearchRating(searchRating)
   }
 
+  const find = (query, by) => {
+    MovieDataService.find(query, by)
+    .then(response => {
+      console.log(response.data)
+      setMovies(response.data.movies)
+    })
+    .catch(e => {
+      console.log(e)
+    })
+  }
 
   const findByTitle = () => {
-    
+    find(searchTitle, "title")
   }
 
   const findByRating = () => {
-
+    if(searchRating === "All Ratings") {
+      retrieveMovies()
+    }
+    else {
+      find(searchRating, "rated")
+    }
   }
 
   return (
@@ -78,7 +93,7 @@ const MoviesList = () => {
     variant="primary" 
     type="button"  
     onClick={findByTitle} >
-    Submit
+    Search
   </Button>
   </Form>
   </Container>
@@ -101,27 +116,27 @@ const MoviesList = () => {
     variant="primary" 
     type="button"  
     onClick={findByRating} >
-    Submit
+    Search
   </Button>
 </Form>
   </Container>
 
   <Container>
     <Row>
-      {movies.map((movies) => {
+      {movies.map((movie) => {
         return(
           <Col>
             <Card style={{ width: '18rem' }}>
-              <Card.Img src={movies.poster+"/100px180"} />
+              <Card.Img src={movie.poster+"/100px180"} />
               <Card.Body>
-                <Card.Title>{movies.title}</Card.Title>
+                <Card.Title>{movie.title}</Card.Title>
                 <Card.Text>
-                  Rating: {movies.rated}
+                  Rating: {movie.rated}
                 </Card.Text>
                 <Card.Text>
-                  {movies.plot}
+                  {movie.plot}
                 </Card.Text>
-                <Link to={"/movies/+movie._id"} >View Reviews</Link>
+                <Link to={"/movies/"+movie._id} >View Reviews</Link>
               </Card.Body>
             </Card>
           </Col>
