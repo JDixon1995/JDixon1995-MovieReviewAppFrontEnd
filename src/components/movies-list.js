@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
 
 const MoviesList = () => {
   
@@ -101,6 +104,30 @@ const MoviesList = () => {
     Submit
   </Button>
 </Form>
+  </Container>
+
+  <Container>
+    <Row>
+      {movies.map((movies) => {
+        return(
+          <Col>
+            <Card style={{ width: '18rem' }}>
+              <Card.Img src={movies.poster+"/100px180"} />
+              <Card.Body>
+                <Card.Title>{movies.title}</Card.Title>
+                <Card.Text>
+                  Rating: {movies.rated}
+                </Card.Text>
+                <Card.Text>
+                  {movies.plot}
+                </Card.Text>
+                <Link to={"/movies/+movie._id"} >View Reviews</Link>
+              </Card.Body>
+            </Card>
+          </Col>
+        )
+      })}
+    </Row>
   </Container>
   </div>
   )};
