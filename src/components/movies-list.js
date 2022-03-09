@@ -23,7 +23,6 @@ const MoviesList = () => {
   const retrieveMovies = () => {
     MovieDataService.getAll()
     .then(response => {
-      console.log(response.data)
       setMovies(response.data.movies)
     })
     .catch( e => {
@@ -34,7 +33,6 @@ const MoviesList = () => {
   const retrieveRatings = () => {
     MovieDataService.getRatings()
     .then(response => {
-      console.log(response.data)
       setRatings(["All Ratings"].concat(response.data))
     })
     .catch(e => {

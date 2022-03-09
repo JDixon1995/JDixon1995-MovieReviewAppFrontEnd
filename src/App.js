@@ -43,14 +43,12 @@ function App() {
     </Container>
   </Navbar>
 
-
 <Routes>
-  <Route path="/movies" element={<MoviesList /> } />
-  <Route path="/movies/:id/review" element = {<AddReview />} />
+  <Route path="/" element={<MoviesList /> } />
   <Route path="/movies/:id" element={<Movie />} />
-  <Route path="/login" element={<Login />} />       
+  <Route path="/movies/:id/review" element={<AddReview />} />
+  <Route path="/login" element={<Login />} />   
 </Routes>
-  
 
   </div>
   );
