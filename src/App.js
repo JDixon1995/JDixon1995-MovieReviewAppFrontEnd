@@ -29,10 +29,10 @@ function App() {
     <div className="App">
     <Navbar bg="dark" variant="dark">
     <Container>
-    <Navbar.Brand href="/">Movie Reviews</Navbar.Brand>
+    <Navbar.Brand>Movie Reviews</Navbar.Brand>
     <Nav className="me-auto">
     <Nav.Link>
-        <Link to={"/movies"}>Movies</Link>
+        <Link to={"/"}>Movies</Link>
     </Nav.Link>
     <Nav.Link>
           { user ? (
