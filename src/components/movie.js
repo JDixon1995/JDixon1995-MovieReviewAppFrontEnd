@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import MovieDataService from '../services/movies'
 import { Link } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
@@ -17,21 +18,22 @@ const Movie = (props) => {
     review: [], 
   })
 
+  const params = useParams()
+
   const getMovie = (id) => {
     MovieDataService.get(id)
     .then(response => {
       setMovie(response.data)
-      console.log(response.data)
     })
     .catch(e => {
       console.log(e)
     })
   }
-/*
+
   useEffect(() => {
-    getMovie(props.match.params.id)
-  },[props.match.params.id])
-*/
+    getMovie(params.id)
+  },[params.id])
+
   return <div>
       <Container>
         <Row>
