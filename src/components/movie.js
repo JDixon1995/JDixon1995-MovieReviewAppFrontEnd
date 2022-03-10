@@ -8,6 +8,7 @@ import Image from 'react-bootstrap/Image'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
+import movies from '../services/movies'
 
 const Movie = (props) => {
 
@@ -39,7 +40,6 @@ const Movie = (props) => {
         <Row>
           <Col>
             <Image src={movie.poster+"/100px250"} fluid />
-          </Col>
           <Card>
             <Card.Header as="h5">{movie.title}</Card.Header>
             <Card.Body>
@@ -47,11 +47,14 @@ const Movie = (props) => {
                 {movie.plot}
               </Card.Text>
               {props.user && 
-              <Link to={"/movies/" + props.match.params.id + "/review"} >
+              <Link to={"/movies/" + params.id + "/review"} >
                 Add Review
               </Link>}
             </Card.Body>
           </Card>
+          <br></br>
+          <h2>Reviews</h2>
+          </Col>
         </Row>
       </Container>
   </div>;
