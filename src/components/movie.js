@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import moment from 'moment'
 import movies from '../services/movies'
 
 const Movie = (props) => {
@@ -59,13 +60,13 @@ const Movie = (props) => {
               return (
                 <Table>
                   <h6 key={index}></h6>
-                  <h5>{review.name + " reviewed on " + review.date}</h5>
+                  <h5>{review.name + " reviewed on " + review.date} {moment(review.date).format("Do MMMM YYYY")}</h5>
                   <p>{review.review}</p>
                   {params.user && params.user.id === review.user_id && 
                     <Row>
                       <Col>
                       <Link to={{
-                        pathname:"/movies/"+params.id+"/review",
+                        pathname:"/movies/"+ params.id +"/review",
                         state: {currentReview: review}
                       }}>Edit</Link>
                       </Col>
