@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import movies from '../services/movies'
 
@@ -54,6 +55,26 @@ const Movie = (props) => {
           </Card>
           <br></br>
           <h2>Reviews</h2>
+            {movie.review ? movie.review.map((review, index) => {
+              return (
+                <Table>
+                  <h6 key={index}></h6>
+                  <h5>{review.name + " reviewed on " + review.date}</h5>
+                  <p>{review.review}</p>
+                  {params.user && params.user.id === review.user_id && 
+                    <Row>
+                      <Col>
+                      <Link to={{
+                        pathname:"/movies/"+params.id+"/review",
+                        state: {currentReview: review}
+                      }}>Edit</Link>
+                      </Col>
+                      <Col><Button variant="link" >Delete</Button></Col>
+                    </Row>
+                  }
+                </Table>
+              )
+            }) : <p>"No reviews for this film..."</p>}
           </Col>
         </Row>
       </Container>
