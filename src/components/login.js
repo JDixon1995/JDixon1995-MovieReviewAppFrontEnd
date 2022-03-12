@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom';
 
 const Login = (props) => {
 
   const [ name, setName ] = useState("")
   const [ id, setId ] = useState("")
+  const navigate = useNavigate()
 
   const onChangeName = e => {
     const name = e.target.value
@@ -19,7 +21,7 @@ const Login = (props) => {
 
   const login = () => {
     props.login({name: name, id: id})
-    props.history.push('/')   
+    navigate('/')   
   }
 
     return(

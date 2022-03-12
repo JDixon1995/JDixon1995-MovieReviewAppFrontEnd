@@ -47,7 +47,7 @@ function App() {
   <Route path="/" element={<MoviesList /> } />
   <Route path="/movies/:id" element={<Movie />} />
   <Route path="/movies/:id/review" element={<AddReview />} />
-  <Route path="/login" element={<Login />} />   
+  <Route path="/login" element={<Login login={login} />} />   
 </Routes>
 
   </div>
