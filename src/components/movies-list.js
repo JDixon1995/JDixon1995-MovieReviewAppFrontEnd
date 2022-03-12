@@ -11,7 +11,6 @@ import Card from 'react-bootstrap/Card'
 const MoviesList = () => {
   
   const [movies, setMovies] = useState([])
-  const [searchTitle, setSearchTitle] = useState('')
   const [searchRating, setSearchRating] = useState('')
   const [ratings, setRatings] = useState(["All Ratings"])
 
@@ -40,11 +39,6 @@ const MoviesList = () => {
     })
   }
 
-  const onChangeSearchTitle = e => {
-    const searchTitle = e.target.value
-    setSearchTitle(searchTitle)
-  }
-
   const onChangeSearchRating = e => {
     const searchRating = e.target.value
     setSearchRating(searchRating)
@@ -61,10 +55,6 @@ const MoviesList = () => {
     })
   }
 
-  const findByTitle = () => {
-    find(searchTitle, "title")
-  }
-
   const findByRating = () => {
     if(searchRating === "All Ratings") {
       retrieveMovies()
@@ -76,26 +66,6 @@ const MoviesList = () => {
 
   return (
   <div>
-    <Container>
-    <Form>
-      <Form.Group className="mb-3" >
-      <Form.Label>Title Search</Form.Label>
-      <Form.Control 
-      type="text" 
-      placeholder="Search by Title" 
-      value={searchTitle} 
-      onChange={onChangeSearchTitle} 
-      />
-    </Form.Group>
-    <Button 
-    variant="primary" 
-    type="button"  
-    onClick={findByTitle} >
-    Search
-  </Button>
-  </Form>
-  </Container>
-    
   <Container>
   <Form>
   <Form.Group className="mb-3">
@@ -111,6 +81,7 @@ const MoviesList = () => {
     </Form.Control>
   </Form.Group>
   <Button 
+    style={{margin: '.5rem'}}
     variant="primary" 
     type="button"  
     onClick={findByRating} >
@@ -126,7 +97,7 @@ const MoviesList = () => {
           <Col>
             <Card style={{ width: '18rem' }}>
               <Card.Img src={movie.poster+"/100px180"} />
-              <Card.Body>
+              <Card.Body >
                 <Card.Title>{movie.title}</Card.Title>
                 <Card.Text>
                   Rating: {movie.rated}
@@ -134,7 +105,7 @@ const MoviesList = () => {
                 <Card.Text>
                   {movie.plot}
                 </Card.Text>
-                <Link to={"/movies/"+movie._id} >View Reviews</Link>
+                <Link to={"/movies/"+movie._id} >View Movie</Link>
               </Card.Body>
             </Card>
           </Col>
