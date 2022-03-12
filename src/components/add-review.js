@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import MovieDataService from "../services/movies"
 import { Link } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
@@ -9,9 +10,15 @@ const AddReview = (props) => {
   let editing = false
   let initialReviewState = ''
 
+  if(props.location.state && props.location.state.currentReview) {
+    editing = true
+    initialReviewState = props.location.state.currentReview.review
+  }
+
   const [ review, setReview ] = useState(initialReviewState)
   //keeps track if review is submitted
   const [ submitted, setSubmitted ] = useState(false)
+  const params = useParams()
 
   const onChangeReview = e => {
     const review = e.target.value
@@ -23,9 +30,20 @@ const AddReview = (props) => {
       review: review,
       name: props.user.name,
       user_id: props.user.id,
-      movie_id: props.match.params.id
+      movie_id: params.id
     }
-
+    if(editing) {
+      // gets exisiting review id
+      data.review_id = props.location.state.currentReview._id
+      MovieDataService.updateReview(data)
+      .then(response => {
+        setSubmitted(true)
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    } else {
     MovieDataService.createReview(data)
     .then(response => {
       setSubmitted(true)
@@ -34,12 +52,12 @@ const AddReview = (props) => {
       console.log(e)
     })
   }
-
+}
   return <div>
       {submitted ? (
         <div>
           <h4>Review submitted successfully</h4>
-          <Link to={"/movies/"+props.match.params.id}>Back to Movie</Link>
+          <Link to={"/movies/"+params.id}>Back to Movie</Link>
         </div>
       ) : (
         <Form>
